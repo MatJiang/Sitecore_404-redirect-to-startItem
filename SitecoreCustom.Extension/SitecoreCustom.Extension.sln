@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SitecoreCustom.Extension", "SitecoreCustom.Extension\SitecoreCustom.Extension.csproj", "{C0FFB4FB-319C-428E-802B-07DF29E5D7AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sitecore.Website", "Sitecore.Website\Sitecore.Website.csproj", "{A71BA4D6-209C-4BF0-9850-5BE68EF9C5A4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C0FFB4FB-319C-428E-802B-07DF29E5D7AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0FFB4FB-319C-428E-802B-07DF29E5D7AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0FFB4FB-319C-428E-802B-07DF29E5D7AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0FFB4FB-319C-428E-802B-07DF29E5D7AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A71BA4D6-209C-4BF0-9850-5BE68EF9C5A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A71BA4D6-209C-4BF0-9850-5BE68EF9C5A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A71BA4D6-209C-4BF0-9850-5BE68EF9C5A4}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{A71BA4D6-209C-4BF0-9850-5BE68EF9C5A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A71BA4D6-209C-4BF0-9850-5BE68EF9C5A4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
