@@ -20,7 +20,7 @@
 
             var context = System.Web.HttpContext.Current;
 
-            var settingSite = _excuteList.Where(site => site.Equals(Sitecore.Context.GetSiteName())).FirstOrDefault();
+            var settingSite = _excuteList.Where(site => site.Equals(Sitecore.Context.GetSiteName(), StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
             if (settingSite != null && Sitecore.Context.Database != null)
             {
                 Item rootPage = Sitecore.Context.Database.GetItem(Sitecore.Context.Site.StartPath);
