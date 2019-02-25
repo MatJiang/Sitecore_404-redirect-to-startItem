@@ -1,26 +1,50 @@
 ﻿namespace SitecoreCustom.Extension.Override
 {
+    using Sitecore.Abstractions;
     using Sitecore.Data.Items;
-    using Sitecore.Links;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web;
 
-    public class ItemNotfoundHandler : Sitecore.Pipelines.HttpRequest.ExecuteRequest
+    public class ItemNotfoundHandler : global::Sitecore.Pipelines.HttpRequest.ExecuteRequest
     {
-        public string Sites { get; set; }
-        public bool EnableLog { get; set; }
-        private static string[] _excuteList;
+        /// <summary>
+        /// Base Link Manager
+        /// </summary>
+        private readonly BaseLinkManager _baseLinkManager;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="baseSiteManager"></param>
+        /// <param name="baseItemManager"></param>
+        /// <param name="baseLinkManager"></param>
+        public ItemNotfoundHandler(BaseSiteManager baseSiteManager, BaseItemManager baseItemManager, BaseLinkManager baseLinkManager) : base(baseSiteManager, baseItemManager)
+        {
+            _baseLinkManager = baseLinkManager;
+        }
+
+        /// <summary>
+        /// Sites Setting
+        /// </summary>
+        private readonly List<string> _sites = new List<string>();
+        public List<string> sites{get{return this._sites;}}
+
+        /// <summary>
+        /// enable log
+        /// </summary>
+        public bool EnableLog { get; set; }
+
+        /// <summary>
+        /// Redirect On ItemNotFound
+        /// </summary>
+        /// <param name="url"></param>
         protected override void RedirectOnItemNotFound(string url)
         {
-            if (!string.IsNullOrEmpty(Sites) && _excuteList == null)
-                _excuteList = Sites.Split(',').Select(s => s.Trim()).ToArray();
-
             var context = System.Web.HttpContext.Current;
 
-            var settingSite = _excuteList.Where(site => site.Equals(Sitecore.Context.GetSiteName(), StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
+            var settingSite = sites.Where(site => site.Equals(Sitecore.Context.GetSiteName(), StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
             if (settingSite != null && Sitecore.Context.Database != null)
             {
                 Item rootPage = Sitecore.Context.Database.GetItem(Sitecore.Context.Site.StartPath);
@@ -35,7 +59,7 @@
                     {
                         Sitecore.Diagnostics.Log.Debug(string.Format("ItemNotfoundHandler Logger Error,Message：{0}", ex.Message));
                     }
-                    Sitecore.Web.WebUtil.Redirect(LinkManager.GetItemUrl(rootPage));
+                    Sitecore.Web.WebUtil.Redirect(_baseLinkManager.GetItemUrl(rootPage));
                 }
                 else
                     base.RedirectOnItemNotFound(url);
@@ -44,6 +68,10 @@
                 base.RedirectOnItemNotFound(url);
         }
 
+        /// <summary>
+        /// log
+        /// </summary>
+        /// <param name="oriUrl"></param>
         private static void Log(string oriUrl)
         {
             var logger = Sitecore.Diagnostics.LoggerFactory.GetLogger("NotfoundLoger");
